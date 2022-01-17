@@ -12,14 +12,14 @@ app = Flask(__name__)
 def home():
 	return render_template('index.html')
 
-@app.route('/predict',methods=['POST'])
-def predict():
+@app.route('/analyse',methods=['POST'])
+def analyse():
     if request.method == 'POST':
     	message = request.form['message']
     	data = [message]
     	vect = vectorizer .transform(data).toarray()
     	my_prediction = classifier.predict(vect)
-    	return render_template('result.html', prediction=my_prediction)
+    	return render_template('result.html', prediction=my_prediction[0])
 
 if __name__ == '__main__':
 	app.run(debug=True)
